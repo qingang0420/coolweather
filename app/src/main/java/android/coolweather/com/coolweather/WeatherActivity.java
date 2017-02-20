@@ -2,6 +2,7 @@ package android.coolweather.com.coolweather;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.coolweather.com.coolweather.service.AutoUpdateService;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -64,7 +65,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     private ImageView bingPicImg;
 
-    private String mWeatherId;
+    //private String mWeatherId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +100,7 @@ public class WeatherActivity extends AppCompatActivity {
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather", null);
-        //final String weatherId;
+        final String mWeatherId;
         if (weatherString != null) {
             // 有缓存时直接解析天气数据
             Weather weather = Utility.handleWeatherResponse(weatherString);
@@ -252,8 +253,8 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText.setText(carWash);
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
-      //  Intent intent = new Intent(this, AutoUpdateService.class);
-     //   startService(intent);
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 
 }
